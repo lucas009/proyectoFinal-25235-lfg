@@ -16,16 +16,18 @@ El objetivo del proyecto es aplicar los conceptos vistos en clase: componentes, 
 
 # Instalación de los siguientes componentes
 
--bootstrap
-npm install bootstrap react-bootstrap
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-npm install react-router-dom
-
-npm install font-awesome
-import 'font-awesome/css/font-awesome.min.css';
+npm install
+npm install -D prettier eslint eslint-plugin-react eslint-plugin-react-hooks eslint-config-prettier
+npm audit fix
+npm i react-router-dom
+npm i react-toastify react-icons
+npm i styled-components
+npm i react-router-dom react-bootstrap bootstrap
+npm i @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons @fortawesome/fontawesome-svg-core
+npm i font-awesome
 
 # El proyecto se encuentra desplegado en:
+
 https://github.com/lucas009/proyectoFinal-25235-lfg.git
 
 # Autor

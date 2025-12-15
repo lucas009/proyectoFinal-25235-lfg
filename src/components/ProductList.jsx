@@ -7,7 +7,6 @@ const ProductList = ({ category = null }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Toast state
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
@@ -48,7 +47,6 @@ const ProductList = ({ category = null }) => {
 
   return (
     <>
-      {/* TOAST */}
       <ToastContainer position="bottom-end" className="p-3">
         <Toast
           show={showToast}
@@ -57,13 +55,10 @@ const ProductList = ({ category = null }) => {
           autohide
           bg="success"
         >
-          <Toast.Body className="text-white">
-            {toastMessage}
-          </Toast.Body>
+          <Toast.Body className="text-white">{toastMessage}</Toast.Body>
         </Toast>
       </ToastContainer>
 
-      {/* LISTA DE PRODUCTOS */}
       <Row>
         {products.map((product) => (
           <Col md={4} key={product.id} className="mb-4">
