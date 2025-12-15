@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Toast, ToastContainer } from "react-bootstrap";
 import ProductCard from "./ProductCard";
+import { useCart } from "../context/CartContext";
 
 const ProductList = ({ category = null }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Toast state
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const { addToCart } = useCart();
 
   useEffect(() => {
     let url = "https://fakestoreapi.com/products";
@@ -25,24 +32,49 @@ const ProductList = ({ category = null }) => {
   }, [category]);
 
   const handleAgregarAlCarrito = (product) => {
-    alert(`Producto ${product.title} agregado al carrito`);
+    addToCart(product);
+    setToastMessage(`"${product.title}" agregado al carrito`);
+    setShowToast(true);
   };
 
   if (loading) {
-    return <div>Cargando...</div>;
+    return (
+      <div className="text-center py-5">
+        <span className="spinner-border text-primary" />
+        <p className="mt-2">Cargando productos...</p>
+      </div>
+    );
   }
 
   return (
-    <Row>
-      {products.map((product) => (
-        <Col md={4} key={product.id} className="mb-4">
-          <ProductCard
-            product={product}
-            agregarAlCarrito={handleAgregarAlCarrito}
-          />
-        </Col>
-      ))}
-    </Row>
+    <>
+      {/* TOAST */}
+      <ToastContainer position="bottom-end" className="p-3">
+        <Toast
+          show={showToast}
+          onClose={() => setShowToast(false)}
+          delay={2500}
+          autohide
+          bg="success"
+        >
+          <Toast.Body className="text-white">
+            {toastMessage}
+          </Toast.Body>
+        </Toast>
+      </ToastContainer>
+
+      {/* LISTA DE PRODUCTOS */}
+      <Row>
+        {products.map((product) => (
+          <Col md={4} key={product.id} className="mb-4">
+            <ProductCard
+              product={product}
+              agregarAlCarrito={handleAgregarAlCarrito}
+            />
+          </Col>
+        ))}
+      </Row>
+    </>
   );
 };
 

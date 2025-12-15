@@ -1,23 +1,59 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
 import Header from "./components/Header";
-import Home from "./components/Home";
-import Ofertas from "./components/Ofertas";
-import Electronics from "./components/Electronics";
-import Login from "./components/Login";
 import Footer from "./components/Footer";
+
+import Home from "./pages/Home";
+import Ofertas from "./pages/Ofertas";
+import Electronics from "./pages/Electronics";
+import Login from "./pages/Login";
+import Carrito from "./pages/Carrito";
+import Administracion from "./pages/Administracion";
+
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import { CartProvider } from "./context/CartContext";
+
+function PrivateRoute({ children }) {
+  const { isAuth } = useAuth();
+  return isAuth ? children : <Navigate to="/login" replace />;
+}
 
 function App() {
   return (
-    <Router>
-      <Header />
-      <Routes>
-        <Route path="/administracion" element={<Login />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/ofertas" element={<Ofertas />} />
-        <Route path="/Electronics" element={<Electronics />} />
-      </Routes>
-      <Footer />
-    </Router>
+    <AuthProvider>
+      <CartProvider>
+        <Router>
+          <Header />
+
+          <Routes>
+            {/* Públicas */}
+            <Route path="/" element={<Home />} />
+            <Route path="/ofertas" element={<Ofertas />} />
+            <Route path="/electronics" element={<Electronics />} />
+            <Route path="/carrito" element={<Carrito />} />
+            <Route path="/login" element={<Login />} />
+
+            {/* Alias */}
+            <Route path="/admin" element={<Navigate to="/administracion" replace />} />
+
+            {/* Protegida */}
+            <Route
+              path="/administracion"
+              element={
+                <PrivateRoute>
+                  <Administracion />
+                </PrivateRoute>
+              }
+            />
+
+            {/* Fallback */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+
+          <Footer />
+        </Router>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 

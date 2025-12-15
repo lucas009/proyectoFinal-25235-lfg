@@ -1,10 +1,15 @@
-import React from "react";
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-const Login = () => {
+export default function Login() {
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Login enviado");
+    login();
+    navigate("/administracion");
   };
 
   return (
@@ -13,27 +18,23 @@ const Login = () => {
         <Col md={6} lg={4}>
           <Card className="shadow-lg p-4">
             <Card.Body>
-              <h2 className="text-center mb-4">Iniciar Sesión</h2>
+              <h2 className="text-center mb-3">Iniciar sesión</h2>
+              <p className="text-muted text-center">
+                Demo: cualquier usuario y contraseña
+              </p>
+
               <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3" controlId="formUsername">
+                <Form.Group className="mb-3">
                   <Form.Label>Usuario</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Ingrese su usuario"
-                    required
-                  />
+                  <Form.Control type="text" required />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formPassword">
+                <Form.Group className="mb-3">
                   <Form.Label>Contraseña</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Ingrese su contraseña"
-                    required
-                  />
+                  <Form.Control type="password" required />
                 </Form.Group>
 
-                <Button variant="primary" type="submit" className="w-100">
+                <Button type="submit" className="w-100">
                   Ingresar
                 </Button>
               </Form>
@@ -43,6 +44,4 @@ const Login = () => {
       </Row>
     </Container>
   );
-};
-
-export default Login;
+}
