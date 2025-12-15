@@ -4,7 +4,7 @@
   flex-direction: column;
 }
 
-/* Layout general */
+
 html,
 body {
   height: 100%;
@@ -16,7 +16,6 @@ body {
   flex-direction: column;
 }
 
-/* Links: que no hereden el azul violeta de Vite */
 a {
   color: inherit;
   text-decoration: none;
@@ -26,10 +25,10 @@ a:hover {
   text-decoration: none;
 }
 
-/* Tipografías */
+
 h1 {
   margin: 0 0 1rem 0;
-  font-size: 2.2rem; /* más realista para web */
+  font-size: 2.2rem; 
   line-height: 1.2;
 }
 

@@ -26,17 +26,15 @@ function App() {
           <Header />
 
           <Routes>
-            {/* Públicas */}
+
             <Route path="/" element={<Home />} />
             <Route path="/ofertas" element={<Ofertas />} />
             <Route path="/electronics" element={<Electronics />} />
             <Route path="/carrito" element={<Carrito />} />
             <Route path="/login" element={<Login />} />
 
-            {/* Alias */}
             <Route path="/admin" element={<Navigate to="/administracion" replace />} />
 
-            {/* Protegida */}
             <Route
               path="/administracion"
               element={
@@ -46,7 +44,6 @@ function App() {
               }
             />
 
-            {/* Fallback */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
 

@@ -66,7 +66,6 @@ const Header = () => {
             Login
           </Button>
 
-          {/* 🛒 CARRITO CON CONTADOR */}
           <Link
             to="/carrito"
             style={{ color: "#003366", position: "relative" }}
